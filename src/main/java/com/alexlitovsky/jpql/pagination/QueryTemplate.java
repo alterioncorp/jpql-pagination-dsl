@@ -28,6 +28,7 @@ public interface QueryTemplate {
 	/**
 	 * Returns all entities matching the query, in the order determined by the query itself.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @return matching entities
@@ -37,6 +38,7 @@ public interface QueryTemplate {
 	/**
 	 * Returns all entities matching the query, ordered by the given specifier.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort order
@@ -47,6 +49,7 @@ public interface QueryTemplate {
 	/**
 	 * Returns all entities matching the query, ordered by the given specifiers.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort orders, applied in array order
@@ -57,6 +60,7 @@ public interface QueryTemplate {
 	/**
 	 * Returns one page of entities matching the query.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort order
@@ -69,6 +73,7 @@ public interface QueryTemplate {
 	/**
 	 * Returns one page of entities matching the query.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort orders, applied in array order
@@ -81,6 +86,7 @@ public interface QueryTemplate {
 	/**
 	 * Returns the number of entities matching the query.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @return the count of matching entities
@@ -92,6 +98,7 @@ public interface QueryTemplate {
 	 * the query itself. The persistence context is cleared after each entity to bound memory
 	 * usage when processing large result sets.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param consumer     called once per matching entity
@@ -103,6 +110,7 @@ public interface QueryTemplate {
 	 * The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort order
@@ -115,6 +123,7 @@ public interface QueryTemplate {
 	 * The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort orders, applied in array order
@@ -127,6 +136,7 @@ public interface QueryTemplate {
 	 * The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort order
@@ -141,6 +151,7 @@ public interface QueryTemplate {
 	 * The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
+	 * @param <T>          the entity type
 	 * @param clazz        the entity class
 	 * @param queryBuilder the query definition
 	 * @param sort         the sort orders, applied in array order
