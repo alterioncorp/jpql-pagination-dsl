@@ -33,9 +33,6 @@ public class Organization {
 	@Column(nullable=false)
 	private String name;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Country country;
-
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="organization", orphanRemoval=true)
 	private Collection<Person> persons = new LinkedList<>();
 
@@ -54,14 +51,6 @@ public class Organization {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 
 	public Collection<Person> getPersons() {

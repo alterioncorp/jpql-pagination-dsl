@@ -5,7 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
-import com.alexlitovsky.jpql.pagination.entities.Country;
 import com.alexlitovsky.jpql.pagination.entities.Organization;
 import com.alexlitovsky.jpql.pagination.entities.Person;
 import com.alexlitovsky.test.derby.DerbyEmbeddedUtils;
@@ -22,8 +21,7 @@ public abstract class JpaTestBase {
 
 	private static final Class<?>[] ENTITIES_TO_DELETE = new Class<?>[] {
 		Person.class,
-		Organization.class,
-		Country.class
+		Organization.class
 	};
 
 	protected static EntityManagerFactory entityManagerFactory;
@@ -59,12 +57,14 @@ public abstract class JpaTestBase {
 	@AfterEach
 	public void after() {
 		if (entityManager != null) {
-			entityManager.getTransaction().begin();
-			for (Class<?> entityClass : ENTITIES_TO_DELETE) {
-				entityManager.createQuery("delete from " + entityClass.getSimpleName()).executeUpdate();
-			}
-			entityManager.getTransaction().commit();
 			entityManager.close();
+		}
+		if (entityManagerFactory != null) {
+			entityManagerFactory.runInTransaction(entityManager -> {
+				for (Class<?> entityClass : ENTITIES_TO_DELETE) {
+					entityManager.createQuery("delete from " + entityClass.getSimpleName()).executeUpdate();
+				}
+			});
 		}
 	}
 }
