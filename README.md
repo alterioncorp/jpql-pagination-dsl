@@ -30,34 +30,32 @@ QueryDSL provides the same type safety via generated Q-types but with a fluent, 
 </dependency>
 ```
 
-QueryDSL Q-types must be generated for your entities. Add the `apt-maven-plugin` to your build, pointing at `querydsl-apt` (jakarta classifier):
+QueryDSL Q-types must be generated for your entities. Add the `maven-compiler-plugin` execution with `querydsl-apt` as an annotation processor:
 
 ```xml
 <plugin>
-    <groupId>com.mysema.maven</groupId>
-    <artifactId>apt-maven-plugin</artifactId>
-    <version>1.1.3</version>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
     <executions>
         <execution>
-            <goals><goal>process</goal></goals>
+            <id>querydsl-generate</id>
             <configuration>
-                <outputDirectory>target/generated-sources/java</outputDirectory>
-                <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-                <options>
-                    <querydsl.packageSuffix>.path</querydsl.packageSuffix>
-                    <querydsl.entityAccessors>true</querydsl.entityAccessors>
-                </options>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>io.github.openfeign.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>7.1</version>
+                        <classifier>jakarta</classifier>
+                    </path>
+                </annotationProcessorPaths>
+                <compilerArgs>
+                    <arg>-Aquerydsl.packageSuffix=.path</arg>
+                    <arg>-Aquerydsl.entityAccessors=true</arg>
+                </compilerArgs>
+                <generatedSourcesDirectory>${project.build.directory}/generated-sources/java</generatedSourcesDirectory>
             </configuration>
         </execution>
     </executions>
-    <dependencies>
-        <dependency>
-            <groupId>io.github.openfeign.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
-            <version>6.12</version>
-            <classifier>jakarta</classifier>
-        </dependency>
-    </dependencies>
 </plugin>
 ```
 

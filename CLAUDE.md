@@ -60,16 +60,14 @@ This is a small Java library (package `com.alexlitovsky.jpql.pagination`, groupI
 These methods stream results and call `entityManager.clear()` after each entity is processed — intended for bulk/batch processing where holding all entities in memory at once would be costly.
 
 ### Test setup
-Tests use Apache Derby (in-memory) via `JpaTestBase`, which creates/destroys the DB per test class. The `unit-test` persistence unit is defined in `src/test/resources/META-INF/persistence.xml`. QueryDSL Q-types for test entities are generated at build time into `target/generated-test-sources/java` by the `apt-maven-plugin`, with the `querydsl.packageSuffix=.path` option — so Q-types land in `*.path` sub-packages (e.g., `com.alexlitovsky.jpql.pagination.entities.path.QPerson`).
+Tests use Apache Derby (in-memory) via `JpaTestBase`, which creates/destroys the DB per test class. The `unit-test` persistence unit is defined in `src/test/resources/META-INF/persistence.xml`. QueryDSL Q-types for test entities are generated at build time into `target/generated-test-sources/java` by the `maven-compiler-plugin` (execution id `default-testCompile`) using `querydsl-apt:jakarta` as an annotation processor path, with the `querydsl.packageSuffix=.path` option — so Q-types land in `*.path` sub-packages (e.g., `com.alexlitovsky.jpql.pagination.entities.path.QPerson`). The `build-helper-maven-plugin` registers that directory as a test source root.
 
 When test entity classes change, run `mvn clean test` (not just `mvn test`) to force Q-type regeneration.
-
-`JpaTestBase` exposes a `runInTransaction(Runnable)` helper that wraps the test's `EntityManager` in a begin/commit/rollback block. Use this in subclass tests instead of managing transactions manually.
 
 ### Key test class
 - `QueryTemplateImplTest` — covers fetch, sorting (single and multi-field), pagination, count, and `apply` variants
 
 ### Key dependencies
-- `querydsl-jpa` / `querydsl-core` (`io.github.openfeign.querydsl` fork, v6.x) — compile-scope
-- Hibernate 6.x and Jakarta Persistence 3.1 — provided scope
+- `querydsl-jpa` / `querydsl-core` (`io.github.openfeign.querydsl` fork, v7.x) — compile-scope
+- Hibernate 7.x and Jakarta Persistence 3.2 — provided scope
 - Jakarta CDI 4 / Inject 2 / Annotation 2 — provided scope

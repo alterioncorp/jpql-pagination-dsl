@@ -31,7 +31,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("B");
 		Person person3 = new Person("C");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -59,7 +59,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -90,7 +90,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -125,7 +125,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -155,7 +155,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -202,7 +202,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -226,7 +226,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("B");
 		Person person3 = new Person("C");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -260,7 +260,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -297,7 +297,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -338,7 +338,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -374,7 +374,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		runInTransaction(() -> {
+		entityManagerFactory.runInTransaction(entityManager -> {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
