@@ -5,10 +5,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
-import com.alexlitovsky.test.derby.DerbyUtils;
 import com.alexlitovsky.jpql.pagination.entities.Country;
 import com.alexlitovsky.jpql.pagination.entities.Organization;
 import com.alexlitovsky.jpql.pagination.entities.Person;
+import com.alexlitovsky.test.derby.DerbyEmbeddedUtils;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -32,7 +32,7 @@ public abstract class JpaTestBase {
 	@BeforeAll
 	public static void beforeClass() {
 
-		DerbyUtils.createTestDb(DB_NAME);
+		DerbyEmbeddedUtils.createDatabase(DB_NAME);
 
 		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
@@ -46,7 +46,7 @@ public abstract class JpaTestBase {
 			entityManagerFactory.close();
 		}
 
-		DerbyUtils.destroyTestDb(DB_NAME);
+		DerbyEmbeddedUtils.dropDatabase(DB_NAME);
 	}
 
 	protected EntityManager entityManager;
