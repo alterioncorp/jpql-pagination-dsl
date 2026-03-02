@@ -23,31 +23,21 @@
 	<properties>
 		<version.querydsl>6.10.1</version.querydsl>
 		<version.slf4j>1.6.1</version.slf4j>
+		<version.hibernate>7.2.5.Final</version.hibernate>
+		<version.derby>10.16.1.1</version.derby>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.1.0</version>
+			<version>3.2.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.enterprise</groupId>
 			<artifactId>jakarta.enterprise.cdi-api</artifactId>
 			<version>4.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.inject</groupId>
-			<artifactId>jakarta.inject-api</artifactId>
-			<version>2.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.annotation</groupId>
-			<artifactId>jakarta.annotation-api</artifactId>
-			<version>2.1.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -63,9 +53,15 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>6.2.15.Final</version>
+			<version>${version.hibernate}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-community-dialects</artifactId>
+			<version>${version.hibernate}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -83,13 +79,19 @@
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>10.14.2.0</version>
+			<version>${version.derby}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derbytools</artifactId>
+			<version>${version.derby}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.alexlitovsky</groupId>
-			<artifactId>test-db</artifactId>
-			<version>1.0.2</version>
+			<artifactId>test-derby</artifactId>
+			<version>1.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

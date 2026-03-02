@@ -21,7 +21,7 @@ QueryDSL provides the same type safety via generated Q-types but with a fluent, 
 ## Requirements
 
 - Java 21+
-- Jakarta Persistence 3.1 (provided)
+- Jakarta Persistence 3.2 (provided)
 - Jakarta CDI 4 (provided)
 - QueryDSL JPA (`io.github.openfeign.querydsl`, v6.x)
 

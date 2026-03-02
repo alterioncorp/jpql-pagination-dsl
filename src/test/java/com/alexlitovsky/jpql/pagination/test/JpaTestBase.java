@@ -5,8 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
-import com.alexlitovsky.test.db.DerbyUtils;
-import com.alexlitovsky.test.db.JpaUtils;
+import com.alexlitovsky.test.derby.DerbyUtils;
 import com.alexlitovsky.jpql.pagination.entities.Country;
 import com.alexlitovsky.jpql.pagination.entities.Organization;
 import com.alexlitovsky.jpql.pagination.entities.Person;
@@ -60,7 +59,11 @@ public abstract class JpaTestBase {
 	@AfterEach
 	public void after() {
 		if (entityManager != null) {
-			JpaUtils.deleteData(entityManager, ENTITIES_TO_DELETE);
+			entityManager.getTransaction().begin();
+			for (Class<?> entityClass : ENTITIES_TO_DELETE) {
+				entityManager.createQuery("delete from " + entityClass.getSimpleName()).executeUpdate();
+			}
+			entityManager.getTransaction().commit();
 			entityManager.close();
 		}
 	}
