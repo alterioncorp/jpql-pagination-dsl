@@ -23,7 +23,7 @@
 	<properties>
 		<version.querydsl>6.10.1</version.querydsl>
 		<version.slf4j>1.6.1</version.slf4j>
-		<version.hibernate>7.2.5.Final</version.hibernate>
+		<version.hibernate>6.6.43.Final</version.hibernate>
 		<version.derby>10.16.1.1</version.derby>
 	</properties>
 
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.2.0</version>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -55,12 +55,6 @@
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>${version.hibernate}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-community-dialects</artifactId>
 			<version>${version.hibernate}</version>
 			<scope>test</scope>
 		</dependency>

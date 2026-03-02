@@ -36,17 +36,35 @@ This is a small Java library (package `com.alexlitovsky.jpql.pagination`, groupI
 - The same lambda can be passed to `find`, `count`, or `apply` without modification
 
 **`QueryTemplate`** — executor interface
-- `find` — fetch a list, with optional sort and pagination
-- `count` — count matching results
-- `apply` — stream the full result set through a `Consumer`, clearing the persistence context after each entity
 
-**`QueryTemplateImpl`** — `@ApplicationScoped` CDI implementation with `@PersistenceContext(unitName = "default")`, also exposes a package-private constructor accepting `EntityManager` for direct use in tests
+`find` overloads:
+- `find(clazz, queryBuilder)` — all results, order from query
+- `find(clazz, queryBuilder, sort)` — all results, single `OrderSpecifier`
+- `find(clazz, queryBuilder, sort[])` — all results, multiple `OrderSpecifier`s
+- `find(clazz, queryBuilder, sort, offset, limit)` — paginated, single sort
+- `find(clazz, queryBuilder, sort[], offset, limit)` — paginated, multiple sorts
+
+`count`:
+- `count(clazz, queryBuilder)` — returns `long`
+
+`apply` overloads (stream results, clear context after each entity):
+- `apply(clazz, queryBuilder, consumer)` — order from query
+- `apply(clazz, queryBuilder, sort, consumer)` — single sort
+- `apply(clazz, queryBuilder, sort[], consumer)` — multiple sorts
+- `apply(clazz, queryBuilder, sort, offset, limit, consumer)` — paginated, single sort
+- `apply(clazz, queryBuilder, sort[], offset, limit, consumer)` — paginated, multiple sorts
+
+**`QueryTemplateImpl`** — `@ApplicationScoped` CDI implementation with `@PersistenceContext(unitName = "default")`, also exposes a public constructor accepting `EntityManager` for direct use in tests
 
 ### `apply` pattern
 These methods stream results and call `entityManager.clear()` after each entity is processed — intended for bulk/batch processing where holding all entities in memory at once would be costly.
 
 ### Test setup
-Tests use Apache Derby (in-memory) via `JpaTestBase`, which creates/destroys the DB per test class. The `unit-test` persistence unit is defined in `src/test/resources/META-INF/persistence.xml`. QueryDSL Q-types for test entities are generated at build time into `target/generated-test-sources/java` by the `apt-maven-plugin`.
+Tests use Apache Derby (in-memory) via `JpaTestBase`, which creates/destroys the DB per test class. The `unit-test` persistence unit is defined in `src/test/resources/META-INF/persistence.xml`. QueryDSL Q-types for test entities are generated at build time into `target/generated-test-sources/java` by the `apt-maven-plugin`, with the `querydsl.packageSuffix=.path` option — so Q-types land in `*.path` sub-packages (e.g., `com.alexlitovsky.jpql.pagination.entities.path.QPerson`).
+
+When test entity classes change, run `mvn clean test` (not just `mvn test`) to force Q-type regeneration.
+
+`JpaTestBase` exposes a `runInTransaction(Runnable)` helper that wraps the test's `EntityManager` in a begin/commit/rollback block. Use this in subclass tests instead of managing transactions manually.
 
 ### Key test class
 - `QueryTemplateImplTest` — covers fetch, sorting (single and multi-field), pagination, count, and `apply` variants

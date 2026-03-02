@@ -18,12 +18,50 @@ The `JPQLQueryBuilder<T>` lambda needs to express a complete query — entity, j
 
 QueryDSL provides the same type safety via generated Q-types but with a fluent, readable API that fits naturally into a single lambda expression.
 
-## Requirements
+## Integration
 
-- Java 21+
-- Jakarta Persistence 3.2 (provided)
-- Jakarta CDI 4 (provided)
-- QueryDSL JPA (`io.github.openfeign.querydsl`, v6.x)
+### Maven dependency
+
+```xml
+<dependency>
+    <groupId>com.alexlitovsky</groupId>
+    <artifactId>jpql-pagination-dsl</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+QueryDSL Q-types must be generated for your entities. Add the `apt-maven-plugin` to your build, pointing at `querydsl-apt` (jakarta classifier):
+
+```xml
+<plugin>
+    <groupId>com.mysema.maven</groupId>
+    <artifactId>apt-maven-plugin</artifactId>
+    <version>1.1.3</version>
+    <executions>
+        <execution>
+            <goals><goal>process</goal></goals>
+            <configuration>
+                <outputDirectory>target/generated-sources/java</outputDirectory>
+                <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                <options>
+                    <querydsl.packageSuffix>.path</querydsl.packageSuffix>
+                    <querydsl.entityAccessors>true</querydsl.entityAccessors>
+                </options>
+            </configuration>
+        </execution>
+    </executions>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.openfeign.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>6.12</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+    </dependencies>
+</plugin>
+```
+
+With `querydsl.packageSuffix=.path`, Q-types are generated in a `.path` sub-package of the entity's package. For example, an entity `com.example.entities.Person` gets a Q-type at `com.example.entities.path.QPerson`.
 
 ## Usage
 
@@ -77,6 +115,8 @@ queryTemplate.apply(Person.class, byDepartment, entity -> process(entity));
 | `find(clazz, builder, sort, offset, limit)` | Fetch a single page |
 | `count(clazz, builder)` | Count matching results |
 | `apply(clazz, builder, consumer)` | Stream results, clearing the persistence context after each entity |
+| `apply(clazz, builder, sort, consumer)` | Stream with sorting |
+| `apply(clazz, builder, sort, offset, limit, consumer)` | Stream a single page |
 
 All `find` and `apply` variants accept either a single `OrderSpecifier<?>` or an `OrderSpecifier<?>[]` for multi-field sorting.
 

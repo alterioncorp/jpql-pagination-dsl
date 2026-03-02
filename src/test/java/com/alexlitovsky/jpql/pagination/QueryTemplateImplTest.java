@@ -31,11 +31,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("B");
 		Person person3 = new Person("C");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
 			QPerson person = QPerson.person;
@@ -59,11 +59,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
 			QPerson person = QPerson.person;
@@ -90,14 +90,14 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.persist(person4);
-		entityManager.persist(person5);
-		entityManager.persist(person6);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+			entityManager.persist(person4);
+			entityManager.persist(person5);
+			entityManager.persist(person6);
+		});
 
 		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
 				QPerson person = QPerson.person;
@@ -125,11 +125,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
 			QPerson person = QPerson.person;
@@ -155,14 +155,14 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.persist(person4);
-		entityManager.persist(person5);
-		entityManager.persist(person6);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+			entityManager.persist(person4);
+			entityManager.persist(person5);
+			entityManager.persist(person6);
+		});
 
 		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
 				QPerson person = QPerson.person;
@@ -202,11 +202,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		long count = queryTemplate.count(Person.class, (queryFactory) -> {
 			QPerson person = QPerson.person;
@@ -226,11 +226,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("B");
 		Person person3 = new Person("C");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		ArrayList<Person> results = new ArrayList<>();
 
@@ -260,11 +260,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		ArrayList<Person> results = new ArrayList<>();
 
@@ -297,14 +297,14 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.persist(person4);
-		entityManager.persist(person5);
-		entityManager.persist(person6);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+			entityManager.persist(person4);
+			entityManager.persist(person5);
+			entityManager.persist(person6);
+		});
 
 		ArrayList<Person> results = new ArrayList<>();
 
@@ -338,11 +338,11 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person2 = new Person("A");
 		Person person3 = new Person("B");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+		});
 
 		ArrayList<Person> results = new ArrayList<>();
 
@@ -374,14 +374,14 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Person person5 = new Person("B");
 		Person person6 = new Person("A");
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-		entityManager.persist(person3);
-		entityManager.persist(person4);
-		entityManager.persist(person5);
-		entityManager.persist(person6);
-		entityManager.getTransaction().commit();
+		runInTransaction(() -> {
+			entityManager.persist(person1);
+			entityManager.persist(person2);
+			entityManager.persist(person3);
+			entityManager.persist(person4);
+			entityManager.persist(person5);
+			entityManager.persist(person6);
+		});
 
 		ArrayList<Person> results = new ArrayList<>();
 

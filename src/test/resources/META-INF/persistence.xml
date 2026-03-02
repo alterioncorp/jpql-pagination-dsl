@@ -7,7 +7,7 @@
         <class>com.alexlitovsky.jpql.pagination.entities.Organization</class>
         <class>com.alexlitovsky.jpql.pagination.entities.Person</class>
 		<properties>
-	        <property name="hibernate.dialect" value="org.hibernate.community.dialect.DerbyDialect"/>
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver"/>

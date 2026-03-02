@@ -57,14 +57,24 @@ public abstract class JpaTestBase {
 	@AfterEach
 	public void after() {
 		if (entityManager != null) {
-			entityManager.close();
-		}
-		if (entityManagerFactory != null) {
-			entityManagerFactory.runInTransaction(entityManager -> {
+			runInTransaction(() -> {
 				for (Class<?> entityClass : ENTITIES_TO_DELETE) {
 					entityManager.createQuery("delete from " + entityClass.getSimpleName()).executeUpdate();
 				}
 			});
+			entityManager.close();
+		}
+	}
+
+	public void runInTransaction(Runnable task) {
+		entityManager.getTransaction().begin();
+		try {
+			task.run();
+			entityManager.getTransaction().commit();
+		}
+		catch (RuntimeException e) {
+			entityManager.getTransaction().rollback();
+			throw e;
 		}
 	}
 }
