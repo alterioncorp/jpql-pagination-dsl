@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>io.github.alterioncorp</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.4</version>
 	</parent>
 
 	<artifactId>jpql-pagination-dsl</artifactId>
@@ -155,7 +155,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.6.1</version>
 				<executions>
 					<execution>
 						<id>add-test-source</id>
