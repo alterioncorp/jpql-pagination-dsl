@@ -38,6 +38,7 @@ public interface QueryTemplate {
 
 	/**
 	 * Returns one page of entities matching the query, ordered by the given specifiers.
+	 * If no specifiers are given, the order is determined by the query itself.
 	 *
 	 * @param <T>          the entity type
 	 * @param queryBuilder the query definition
@@ -72,7 +73,8 @@ public interface QueryTemplate {
 
 	/**
 	 * Passes a page of entities matching the query to the given consumer, ordered by the given
-	 * specifiers. The persistence context is cleared after each entity to bound memory usage when
+	 * specifiers. If no specifiers are given, the order is determined by the query itself.
+	 * The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
 	 * @param <T>          the entity type
