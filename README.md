@@ -1,5 +1,7 @@
 # jpql-pagination-dsl
 
+[![codecov](https://codecov.io/gh/alterioncorp/jpql-pagination-dsl/graph/badge.svg)](https://codecov.io/gh/alterioncorp/jpql-pagination-dsl)
+
 A small Java library that lets you define a QueryDSL query once as a lambda and reuse it to fetch a page, get a count, or stream the full result set — without repeating predicates.
 
 ## The problem
