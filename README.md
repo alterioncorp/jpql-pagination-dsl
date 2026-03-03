@@ -81,10 +81,10 @@ JPQLQueryBuilder<Person> byDepartment = queryFactory -> {
 ### Paginated fetch + count
 
 ```java
-long total = queryTemplate.count(Person.class, byDepartment);
+long total = queryTemplate.count(byDepartment);
 
 List<Person> page = queryTemplate.find(
-        Person.class, byDepartment,
+        byDepartment,
         QPerson.person.name.asc(), offset, limit);
 ```
 
@@ -92,7 +92,7 @@ List<Person> page = queryTemplate.find(
 
 ```java
 List<Person> results = queryTemplate.find(
-        Person.class, byDepartment,
+        byDepartment,
         new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()});
 ```
 
@@ -101,20 +101,20 @@ List<Person> results = queryTemplate.find(
 `apply` streams results and clears the persistence context after each entity, keeping memory usage flat for large result sets:
 
 ```java
-queryTemplate.apply(Person.class, byDepartment, entity -> process(entity));
+queryTemplate.apply(byDepartment, entity -> process(entity));
 ```
 
 ## API summary
 
 | Method | Description |
 |--------|-------------|
-| `find(clazz, builder)` | Fetch all matching results |
-| `find(clazz, builder, sort)` | Fetch with sorting |
-| `find(clazz, builder, sort, offset, limit)` | Fetch a single page |
-| `count(clazz, builder)` | Count matching results |
-| `apply(clazz, builder, consumer)` | Stream results, clearing the persistence context after each entity |
-| `apply(clazz, builder, sort, consumer)` | Stream with sorting |
-| `apply(clazz, builder, sort, offset, limit, consumer)` | Stream a single page |
+| `find(builder)` | Fetch all matching results |
+| `find(builder, sort)` | Fetch with sorting |
+| `find(builder, sort, offset, limit)` | Fetch a single page |
+| `count(builder)` | Count matching results |
+| `apply(builder, consumer)` | Stream results, clearing the persistence context after each entity |
+| `apply(builder, sort, consumer)` | Stream with sorting |
+| `apply(builder, sort, offset, limit, consumer)` | Stream a single page |
 
 All `find` and `apply` variants accept either a single `OrderSpecifier<?>` or an `OrderSpecifier<?>[]` for multi-field sorting.
 

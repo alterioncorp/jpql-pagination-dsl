@@ -37,7 +37,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 			entityManager.persist(person3);
 		});
 
-		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
+		List<Person> results = queryTemplate.find((queryFactory) -> {
 			QPerson person = QPerson.person;
 			return queryFactory
 					.select(person)
@@ -65,7 +65,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 			entityManager.persist(person3);
 		});
 
-		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
+		List<Person> results = queryTemplate.find((queryFactory) -> {
 			QPerson person = QPerson.person;
 			return queryFactory
 					.select(person)
@@ -81,7 +81,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 	}
 
 	@Test
-	public void testFind_SortingBySeveralField() {
+	public void testFind_SortingBySeveralFields() {
 
 		Person person1 = new Person("B");
 		Person person2 = new Person("A");
@@ -99,7 +99,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 			entityManager.persist(person6);
 		});
 
-		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
+		List<Person> results = queryTemplate.find((queryFactory) -> {
 				QPerson person = QPerson.person;
 				return queryFactory
 						.select(person)
@@ -131,7 +131,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 			entityManager.persist(person3);
 		});
 
-		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
+		List<Person> results = queryTemplate.find((queryFactory) -> {
 			QPerson person = QPerson.person;
 			return queryFactory
 					.select(person)
@@ -164,7 +164,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 			entityManager.persist(person6);
 		});
 
-		List<Person> results = queryTemplate.find(Person.class, (queryFactory) -> {
+		List<Person> results = queryTemplate.find((queryFactory) -> {
 				QPerson person = QPerson.person;
 				return queryFactory
 						.select(person)
@@ -179,7 +179,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		Assertions.assertEquals(person3.getId(), results.get(1).getId());
 		Assertions.assertEquals(person6.getId(), results.get(2).getId());
 
-		results = queryTemplate.find(Person.class, (queryFactory) -> {
+		results = queryTemplate.find((queryFactory) -> {
 				QPerson person = QPerson.person;
 				return queryFactory
 						.select(person)
@@ -208,7 +208,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 			entityManager.persist(person3);
 		});
 
-		long count = queryTemplate.count(Person.class, (queryFactory) -> {
+		long count = queryTemplate.count((queryFactory) -> {
 			QPerson person = QPerson.person;
 			return queryFactory
 					.select(person)
@@ -235,7 +235,6 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		ArrayList<Person> results = new ArrayList<>();
 
 		queryTemplate.apply(
-				Person.class,
 				queryFactory -> {
 					QPerson person = QPerson.person;
 					return queryFactory
@@ -269,7 +268,6 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		ArrayList<Person> results = new ArrayList<>();
 
 		queryTemplate.apply(
-				Person.class,
 				queryFactory -> {
 					QPerson person = QPerson.person;
 					return queryFactory
@@ -288,7 +286,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 	}
 
 	@Test
-	public void testApply_SortingBySeveralField() {
+	public void testApply_SortingBySeveralFields() {
 
 		Person person1 = new Person("B");
 		Person person2 = new Person("A");
@@ -309,7 +307,6 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		ArrayList<Person> results = new ArrayList<>();
 
 		queryTemplate.apply(
-				Person.class,
 				queryFactory -> {
 					QPerson person = QPerson.person;
 					return queryFactory
@@ -347,7 +344,6 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		ArrayList<Person> results = new ArrayList<>();
 
 		queryTemplate.apply(
-				Person.class,
 				queryFactory -> {
 					QPerson person = QPerson.person;
 					return queryFactory
@@ -386,7 +382,6 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		ArrayList<Person> results = new ArrayList<>();
 
 		queryTemplate.apply(
-				Person.class,
 				queryFactory -> {
 					QPerson person = QPerson.person;
 					return queryFactory
@@ -407,7 +402,6 @@ public class QueryTemplateImplTest extends JpaTestBase {
 		results.clear();
 
 		queryTemplate.apply(
-				Person.class,
 				queryFactory -> {
 					QPerson person = QPerson.person;
 					return queryFactory

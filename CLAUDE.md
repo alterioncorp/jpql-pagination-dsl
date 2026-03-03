@@ -38,21 +38,21 @@ This is a small Java library (package `io.github.alterioncorp.jpql.pagination`, 
 **`QueryTemplate`** — executor interface
 
 `find` overloads:
-- `find(clazz, queryBuilder)` — all results, order from query
-- `find(clazz, queryBuilder, sort)` — all results, single `OrderSpecifier`
-- `find(clazz, queryBuilder, sort[])` — all results, multiple `OrderSpecifier`s
-- `find(clazz, queryBuilder, sort, offset, limit)` — paginated, single sort
-- `find(clazz, queryBuilder, sort[], offset, limit)` — paginated, multiple sorts
+- `find(queryBuilder)` — all results, order from query
+- `find(queryBuilder, sort)` — all results, single `OrderSpecifier`
+- `find(queryBuilder, sort[])` — all results, multiple `OrderSpecifier`s
+- `find(queryBuilder, sort, offset, limit)` — paginated, single sort
+- `find(queryBuilder, sort[], offset, limit)` — paginated, multiple sorts
 
 `count`:
-- `count(clazz, queryBuilder)` — returns `long`
+- `count(queryBuilder)` — returns `long`
 
 `apply` overloads (stream results, clear context after each entity):
-- `apply(clazz, queryBuilder, consumer)` — order from query
-- `apply(clazz, queryBuilder, sort, consumer)` — single sort
-- `apply(clazz, queryBuilder, sort[], consumer)` — multiple sorts
-- `apply(clazz, queryBuilder, sort, offset, limit, consumer)` — paginated, single sort
-- `apply(clazz, queryBuilder, sort[], offset, limit, consumer)` — paginated, multiple sorts
+- `apply(queryBuilder, consumer)` — order from query
+- `apply(queryBuilder, sort, consumer)` — single sort
+- `apply(queryBuilder, sort[], consumer)` — multiple sorts
+- `apply(queryBuilder, sort, offset, limit, consumer)` — paginated, single sort
+- `apply(queryBuilder, sort[], offset, limit, consumer)` — paginated, multiple sorts
 
 **`QueryTemplateImpl`** — `@ApplicationScoped` CDI implementation with `@PersistenceContext(unitName = "default")`, also exposes a public constructor accepting `EntityManager` for direct use in tests
 
