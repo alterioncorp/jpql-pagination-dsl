@@ -31,6 +31,13 @@
 		<url>https://github.com/alterioncorp/jpql-pagination-dsl</url>
 	</scm>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/alterioncorp/jpql-pagination-dsl</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<version.querydsl>7.1</version.querydsl>
 		<version.slf4j>2.0.17</version.slf4j>
