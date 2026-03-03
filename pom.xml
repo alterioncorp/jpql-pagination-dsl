@@ -5,20 +5,31 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.alexlitovsky</groupId>
+		<groupId>io.github.alterioncorp</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.2</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<artifactId>jpql-pagination-dsl</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<url>https://maven.pkg.github.com/alexlitovsky/jpql-pagination-dsl</url>
-		</repository>
-	</distributionManagement>
+	<name>jpql-pagination-dsl</name>
+	<description>Type-safe, composable JPQL queries via QueryDSL with built-in pagination and sorting support.</description>
+	<url>https://github.com/alterioncorp/jpql-pagination-dsl</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git://github.com/alterioncorp/jpql-pagination-dsl.git</connection>
+		<developerConnection>scm:git:ssh://github.com/alterioncorp/jpql-pagination-dsl.git</developerConnection>
+		<url>https://github.com/alterioncorp/jpql-pagination-dsl</url>
+	</scm>
 
 	<properties>
 		<version.querydsl>7.1</version.querydsl>
@@ -89,9 +100,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.alexlitovsky</groupId>
+			<groupId>io.github.alterioncorp</groupId>
 			<artifactId>test-derby</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

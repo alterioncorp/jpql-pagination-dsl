@@ -27,7 +27,7 @@ mvn package -DskipTests
 
 ## Architecture Overview
 
-This is a small Java library (package `com.alexlitovsky.jpql.pagination`, groupId `com.alexlitovsky`) that provides a CDI-injectable wrapper around JPA/Hibernate for executing QueryDSL fluent queries with sorting and pagination.
+This is a small Java library (package `io.github.alterioncorp.jpql.pagination`, groupId `io.github.alterioncorp`) that provides a CDI-injectable wrapper around JPA/Hibernate for executing QueryDSL fluent queries with sorting and pagination.
 
 ### Key types
 
@@ -60,7 +60,7 @@ This is a small Java library (package `com.alexlitovsky.jpql.pagination`, groupI
 These methods stream results and call `entityManager.clear()` after each entity is processed — intended for bulk/batch processing where holding all entities in memory at once would be costly.
 
 ### Test setup
-Tests use Apache Derby (in-memory) via `JpaTestBase`, which creates/destroys the DB per test class. The `unit-test` persistence unit is defined in `src/test/resources/META-INF/persistence.xml`. QueryDSL Q-types for test entities are generated at build time into `target/generated-test-sources/java` by the `maven-compiler-plugin` (execution id `default-testCompile`) using `querydsl-apt:jakarta` as an annotation processor path, with the `querydsl.packageSuffix=.path` option — so Q-types land in `*.path` sub-packages (e.g., `com.alexlitovsky.jpql.pagination.entities.path.QPerson`). The `build-helper-maven-plugin` registers that directory as a test source root.
+Tests use Apache Derby (in-memory) via `JpaTestBase`, which creates/destroys the DB per test class. The `unit-test` persistence unit is defined in `src/test/resources/META-INF/persistence.xml`. QueryDSL Q-types for test entities are generated at build time into `target/generated-test-sources/java` by the `maven-compiler-plugin` (execution id `default-testCompile`) using `querydsl-apt:jakarta` as an annotation processor path, with the `querydsl.packageSuffix=.path` option — so Q-types land in `*.path` sub-packages (e.g., `io.github.alterioncorp.jpql.pagination.entities.path.QPerson`). The `build-helper-maven-plugin` registers that directory as a test source root.
 
 When test entity classes change, run `mvn clean test` (not just `mvn test`) to force Q-type regeneration.
 

@@ -24,7 +24,7 @@ QueryDSL provides the same type safety via generated Q-types but with a fluent, 
 
 ```xml
 <dependency>
-    <groupId>com.alexlitovsky</groupId>
+    <groupId>io.github.alterioncorp</groupId>
     <artifactId>jpql-pagination-dsl</artifactId>
     <version>1.0.0</version>
 </dependency>
