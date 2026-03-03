@@ -112,7 +112,7 @@ queryTemplate.apply(byDepartment, entity -> process(entity));
 | `find(builder, offset, limit, sort...)` | Fetch a single page, with optional sorting |
 | `count(builder)` | Count matching results |
 | `apply(builder, consumer, sort...)` | Stream results, with optional sorting |
-| `apply(builder, offset, limit, consumer, sort...)` | Stream a single page, with optional sorting |
+| `apply(builder, consumer, offset, limit, sort...)` | Stream a single page, with optional sorting |
 
 ## CDI setup
 

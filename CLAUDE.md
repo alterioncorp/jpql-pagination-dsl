@@ -46,7 +46,7 @@ This is a small Java library (package `io.github.alterioncorp.jpql.pagination`, 
 
 `apply` overloads (stream results, clear context after each entity):
 - `apply(queryBuilder, consumer, sort...)` — zero or more sort specifiers
-- `apply(queryBuilder, offset, limit, consumer, sort...)` — paginated, zero or more sort specifiers
+- `apply(queryBuilder, consumer, offset, limit, sort...)` — paginated, zero or more sort specifiers
 
 **`QueryTemplateImpl`** — `@ApplicationScoped` CDI implementation with `@PersistenceContext(unitName = "default")`, also exposes a public constructor accepting `EntityManager` for direct use in tests
 

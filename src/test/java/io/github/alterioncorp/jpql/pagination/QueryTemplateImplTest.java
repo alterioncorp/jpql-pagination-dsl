@@ -350,8 +350,8 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person2.getName(), person3.getName())));
 				},
-				1, 1,
-				entity -> results.add(entity),
+				entity -> results.add(entity), 1,
+				1,
 				QPerson.person.name.asc()
 		);
 
@@ -389,8 +389,8 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 				},
-				0, 3,
-				entity -> results.add(entity),
+				entity -> results.add(entity), 0,
+				3,
 				QPerson.person.name.asc(), QPerson.person.id.asc()
 		);
 
@@ -410,8 +410,8 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 				},
-				2, 3,
-				entity -> results.add(entity),
+				entity -> results.add(entity), 2,
+				3,
 				QPerson.person.name.asc(), QPerson.person.id.asc()
 		);
 

@@ -77,11 +77,11 @@ public interface QueryTemplate {
 	 *
 	 * @param <T>          the entity type
 	 * @param queryBuilder the query definition
+	 * @param consumer     called once per matching entity
 	 * @param offset       zero-based index of the first result to process
 	 * @param limit        maximum number of results to process
-	 * @param consumer     called once per matching entity
 	 * @param sort         zero or more sort specifiers, applied in order
 	 */
-	<T> void apply(JPQLQueryBuilder<T> queryBuilder, long offset, long limit, Consumer<T> consumer, OrderSpecifier<?>... sort);
+	<T> void apply(JPQLQueryBuilder<T> queryBuilder, Consumer<T> consumer, long offset, long limit, OrderSpecifier<?>... sort);
 
 }

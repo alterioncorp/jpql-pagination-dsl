@@ -68,7 +68,7 @@ public class QueryTemplateImpl implements QueryTemplate {
 	}
 
 	@Override
-	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, long offset, long limit, Consumer<T> consumer, OrderSpecifier<?>... sort) {
+	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, Consumer<T> consumer, long offset, long limit, OrderSpecifier<?>... sort) {
 		createQuery(queryBuilder).orderBy(sort).offset(offset).limit(limit).stream().forEach(entity -> {
 			consumer.accept(entity);
 			entityManager.clear();
