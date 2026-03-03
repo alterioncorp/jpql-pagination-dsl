@@ -38,21 +38,15 @@ This is a small Java library (package `io.github.alterioncorp.jpql.pagination`, 
 **`QueryTemplate`** — executor interface
 
 `find` overloads:
-- `find(queryBuilder)` — all results, order from query
-- `find(queryBuilder, sort)` — all results, single `OrderSpecifier`
-- `find(queryBuilder, sort[])` — all results, multiple `OrderSpecifier`s
-- `find(queryBuilder, sort, offset, limit)` — paginated, single sort
-- `find(queryBuilder, sort[], offset, limit)` — paginated, multiple sorts
+- `find(queryBuilder, sort...)` — all results, zero or more sort specifiers
+- `find(queryBuilder, offset, limit, sort...)` — paginated, zero or more sort specifiers
 
 `count`:
 - `count(queryBuilder)` — returns `long`
 
 `apply` overloads (stream results, clear context after each entity):
-- `apply(queryBuilder, consumer)` — order from query
-- `apply(queryBuilder, sort, consumer)` — single sort
-- `apply(queryBuilder, sort[], consumer)` — multiple sorts
-- `apply(queryBuilder, sort, offset, limit, consumer)` — paginated, single sort
-- `apply(queryBuilder, sort[], offset, limit, consumer)` — paginated, multiple sorts
+- `apply(queryBuilder, consumer, sort...)` — zero or more sort specifiers
+- `apply(queryBuilder, offset, limit, consumer, sort...)` — paginated, zero or more sort specifiers
 
 **`QueryTemplateImpl`** — `@ApplicationScoped` CDI implementation with `@PersistenceContext(unitName = "default")`, also exposes a public constructor accepting `EntityManager` for direct use in tests
 

@@ -20,63 +20,33 @@ import com.querydsl.core.types.OrderSpecifier;
  *         .where(QPerson.person.department.eq("Engineering"));
  *
  * long total = queryTemplate.count(query);
- * List<Person> page = queryTemplate.find(query, QPerson.person.name.asc(), offset, limit);
+ * List<Person> page = queryTemplate.find(query, offset, limit, QPerson.person.name.asc());
  * }</pre>
  */
 public interface QueryTemplate {
 
 	/**
-	 * Returns all entities matching the query, in the order determined by the query itself.
+	 * Returns all entities matching the query, ordered by the given specifiers.
+	 * If no specifiers are given, the order is determined by the query itself.
 	 *
 	 * @param <T>          the entity type
 	 * @param queryBuilder the query definition
+	 * @param sort         zero or more sort specifiers, applied in order
 	 * @return matching entities
 	 */
-	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder);
+	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>... sort);
 
 	/**
-	 * Returns all entities matching the query, ordered by the given specifier.
+	 * Returns one page of entities matching the query, ordered by the given specifiers.
 	 *
 	 * @param <T>          the entity type
 	 * @param queryBuilder the query definition
-	 * @param sort         the sort order
-	 * @return matching entities in the specified order
-	 */
-	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort);
-
-	/**
-	 * Returns all entities matching the query, ordered by the given specifiers.
-	 *
-	 * @param <T>          the entity type
-	 * @param queryBuilder the query definition
-	 * @param sort         the sort orders, applied in array order
-	 * @return matching entities in the specified order
-	 */
-	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort);
-
-	/**
-	 * Returns one page of entities matching the query.
-	 *
-	 * @param <T>          the entity type
-	 * @param queryBuilder the query definition
-	 * @param sort         the sort order
 	 * @param offset       zero-based index of the first result to return
 	 * @param limit        maximum number of results to return
-	 * @return one page of matching entities in the specified order
+	 * @param sort         zero or more sort specifiers, applied in order
+	 * @return one page of matching entities
 	 */
-	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort, long offset, long limit);
-
-	/**
-	 * Returns one page of entities matching the query.
-	 *
-	 * @param <T>          the entity type
-	 * @param queryBuilder the query definition
-	 * @param sort         the sort orders, applied in array order
-	 * @param offset       zero-based index of the first result to return
-	 * @param limit        maximum number of results to return
-	 * @return one page of matching entities in the specified order
-	 */
-	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort, long offset, long limit);
+	<T> List<T> find(JPQLQueryBuilder<T> queryBuilder, long offset, long limit, OrderSpecifier<?>... sort);
 
 	/**
 	 * Returns the number of entities matching the query.
@@ -88,66 +58,30 @@ public interface QueryTemplate {
 	<T> long count(JPQLQueryBuilder<T> queryBuilder);
 
 	/**
-	 * Passes each entity matching the query to the given consumer, in the order determined by
-	 * the query itself. The persistence context is cleared after each entity to bound memory
-	 * usage when processing large result sets.
-	 *
-	 * @param <T>          the entity type
-	 * @param queryBuilder the query definition
-	 * @param consumer     called once per matching entity
-	 */
-	<T> void apply(JPQLQueryBuilder<T> queryBuilder, Consumer<T> consumer);
-
-	/**
-	 * Passes each entity matching the query to the given consumer, in the specified order.
+	 * Passes each entity matching the query to the given consumer, ordered by the given specifiers.
+	 * If no specifiers are given, the order is determined by the query itself.
 	 * The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
 	 * @param <T>          the entity type
 	 * @param queryBuilder the query definition
-	 * @param sort         the sort order
 	 * @param consumer     called once per matching entity
+	 * @param sort         zero or more sort specifiers, applied in order
 	 */
-	<T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort, Consumer<T> consumer);
+	<T> void apply(JPQLQueryBuilder<T> queryBuilder, Consumer<T> consumer, OrderSpecifier<?>... sort);
 
 	/**
-	 * Passes each entity matching the query to the given consumer, in the specified order.
-	 * The persistence context is cleared after each entity to bound memory usage when
+	 * Passes a page of entities matching the query to the given consumer, ordered by the given
+	 * specifiers. The persistence context is cleared after each entity to bound memory usage when
 	 * processing large result sets.
 	 *
 	 * @param <T>          the entity type
 	 * @param queryBuilder the query definition
-	 * @param sort         the sort orders, applied in array order
-	 * @param consumer     called once per matching entity
-	 */
-	<T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort, Consumer<T> consumer);
-
-	/**
-	 * Passes a page of entities matching the query to the given consumer, in the specified order.
-	 * The persistence context is cleared after each entity to bound memory usage when
-	 * processing large result sets.
-	 *
-	 * @param <T>          the entity type
-	 * @param queryBuilder the query definition
-	 * @param sort         the sort order
 	 * @param offset       zero-based index of the first result to process
 	 * @param limit        maximum number of results to process
 	 * @param consumer     called once per matching entity
+	 * @param sort         zero or more sort specifiers, applied in order
 	 */
-	<T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort, long offset, long limit, Consumer<T> consumer);
-
-	/**
-	 * Passes a page of entities matching the query to the given consumer, in the specified order.
-	 * The persistence context is cleared after each entity to bound memory usage when
-	 * processing large result sets.
-	 *
-	 * @param <T>          the entity type
-	 * @param queryBuilder the query definition
-	 * @param sort         the sort orders, applied in array order
-	 * @param offset       zero-based index of the first result to process
-	 * @param limit        maximum number of results to process
-	 * @param consumer     called once per matching entity
-	 */
-	<T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort, long offset, long limit, Consumer<T> consumer);
+	<T> void apply(JPQLQueryBuilder<T> queryBuilder, long offset, long limit, Consumer<T> consumer, OrderSpecifier<?>... sort);
 
 }

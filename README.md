@@ -85,7 +85,7 @@ long total = queryTemplate.count(byDepartment);
 
 List<Person> page = queryTemplate.find(
         byDepartment,
-        QPerson.person.name.asc(), offset, limit);
+        offset, limit, QPerson.person.name.asc());
 ```
 
 ### Multi-field sort
@@ -93,7 +93,7 @@ List<Person> page = queryTemplate.find(
 ```java
 List<Person> results = queryTemplate.find(
         byDepartment,
-        new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()});
+        QPerson.person.name.asc(), QPerson.person.id.asc());
 ```
 
 ### Streaming the full dataset (batch processing)
@@ -108,15 +108,11 @@ queryTemplate.apply(byDepartment, entity -> process(entity));
 
 | Method | Description |
 |--------|-------------|
-| `find(builder)` | Fetch all matching results |
-| `find(builder, sort)` | Fetch with sorting |
-| `find(builder, sort, offset, limit)` | Fetch a single page |
+| `find(builder, sort...)` | Fetch all matching results, with optional sorting |
+| `find(builder, offset, limit, sort...)` | Fetch a single page, with optional sorting |
 | `count(builder)` | Count matching results |
-| `apply(builder, consumer)` | Stream results, clearing the persistence context after each entity |
-| `apply(builder, sort, consumer)` | Stream with sorting |
-| `apply(builder, sort, offset, limit, consumer)` | Stream a single page |
-
-All `find` and `apply` variants accept either a single `OrderSpecifier<?>` or an `OrderSpecifier<?>[]` for multi-field sorting.
+| `apply(builder, consumer, sort...)` | Stream results, with optional sorting |
+| `apply(builder, offset, limit, consumer, sort...)` | Stream a single page, with optional sorting |
 
 ## CDI setup
 

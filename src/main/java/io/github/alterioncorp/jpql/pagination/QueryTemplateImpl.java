@@ -2,7 +2,6 @@ package io.github.alterioncorp.jpql.pagination;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.JPQLQuery;
@@ -46,125 +45,38 @@ public class QueryTemplateImpl implements QueryTemplate {
 	}
 
 	@Override
-	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder) {
-		return this.createQuery(queryBuilder).fetch();
+	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>... sort) {
+		return createQuery(queryBuilder).orderBy(sort).fetch();
 	}
 
 	@Override
-	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort) {
-		return this.createQuery(queryBuilder)
-			.orderBy(sort)
-			.fetch();
-	}
-
-	@Override
-	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.fetch();
-	}
-
-	@Override
-	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort, long offset, long limit) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.offset(offset)
-				.limit(limit)
-				.fetch();
-	}
-
-	@Override
-	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort, long offset, long limit) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.offset(offset)
-				.limit(limit)
-				.fetch();
-	}
-
-	private <T> Stream<T> streamMultipleByQuery(JPQLQueryBuilder<T> queryBuilder) {
-		return this.createQuery(queryBuilder).stream();
-	}
-
-	private <T> Stream<T> streamMultipleByQuery(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.stream();
-	}
-
-	private <T> Stream<T> streamMultipleByQuery(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.stream();
-	}
-
-	private <T> Stream<T> streamMultipleByQuery(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort,
-			long offset, long limit) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.offset(offset)
-				.limit(limit)
-				.stream();
-	}
-
-	private <T> Stream<T> streamMultipleByQuery(JPQLQueryBuilder<T> queryBuilder,
-			OrderSpecifier<?>[] sort, long offset, long limit) {
-		return this.createQuery(queryBuilder)
-				.orderBy(sort)
-				.offset(offset)
-				.limit(limit)
-				.stream();
+	public <T> List<T> find(JPQLQueryBuilder<T> queryBuilder, long offset, long limit, OrderSpecifier<?>... sort) {
+		return createQuery(queryBuilder).orderBy(sort).offset(offset).limit(limit).fetch();
 	}
 
 	@Override
 	public <T> long count(JPQLQueryBuilder<T> queryBuilder) {
-		return this.createQuery(queryBuilder).fetchCount();
+		return createQuery(queryBuilder).fetchCount();
+	}
+
+	@Override
+	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, Consumer<T> consumer, OrderSpecifier<?>... sort) {
+		createQuery(queryBuilder).orderBy(sort).stream().forEach(entity -> {
+			consumer.accept(entity);
+			entityManager.clear();
+		});
+	}
+
+	@Override
+	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, long offset, long limit, Consumer<T> consumer, OrderSpecifier<?>... sort) {
+		createQuery(queryBuilder).orderBy(sort).offset(offset).limit(limit).stream().forEach(entity -> {
+			consumer.accept(entity);
+			entityManager.clear();
+		});
 	}
 
 	private <T> JPQLQuery<T> createQuery(JPQLQueryBuilder<T> queryBuilder) {
-		JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-		return queryBuilder.createQuery(queryFactory);
+		return queryBuilder.createQuery(new JPAQueryFactory(entityManager));
 	}
 
-	@Override
-	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, Consumer<T> consumer) {
-		streamMultipleByQuery(queryBuilder).forEach(entity -> {
-			consumer.accept(entity);
-			entityManager.clear();
-		});
-	}
-
-	@Override
-	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort, Consumer<T> consumer) {
-		streamMultipleByQuery(queryBuilder, sort).forEach(entity -> {
-			consumer.accept(entity);
-			entityManager.clear();
-		});
-	}
-
-	@Override
-	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort, Consumer<T> consumer) {
-		streamMultipleByQuery(queryBuilder, sort).forEach(entity -> {
-			consumer.accept(entity);
-			entityManager.clear();
-		});
-	}
-
-	@Override
-	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?> sort,
-			long offset, long limit, Consumer<T> consumer) {
-		streamMultipleByQuery(queryBuilder, sort, offset, limit).forEach(entity -> {
-			consumer.accept(entity);
-			entityManager.clear();
-		});
-	}
-
-	@Override
-	public <T> void apply(JPQLQueryBuilder<T> queryBuilder, OrderSpecifier<?>[] sort,
-			long offset, long limit, Consumer<T> consumer) {
-		streamMultipleByQuery(queryBuilder, sort, offset, limit).forEach(entity -> {
-			consumer.accept(entity);
-			entityManager.clear();
-		});
-	}
 }

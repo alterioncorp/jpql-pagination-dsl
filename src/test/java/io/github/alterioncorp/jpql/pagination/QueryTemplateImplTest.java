@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import io.github.alterioncorp.jpql.pagination.entities.Person;
 import io.github.alterioncorp.jpql.pagination.entities.path.QPerson;
 import io.github.alterioncorp.jpql.pagination.test.JpaTestBase;
-import com.querydsl.core.types.OrderSpecifier;
 
 public class QueryTemplateImplTest extends JpaTestBase {
 
@@ -106,7 +105,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 						.from(person)
 						.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 			},
-			new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()});
+			QPerson.person.name.asc(), QPerson.person.id.asc());
 
 		Assertions.assertNotNull(results);
 		Assertions.assertEquals(6, results.size());
@@ -138,7 +137,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 					.from(person)
 					.where(person.name.in(Arrays.asList(person2.getName(), person3.getName())));
 			},
-			QPerson.person.name.asc(), 1, 1);
+			1, 1, QPerson.person.name.asc());
 
 		Assertions.assertNotNull(results);
 		Assertions.assertEquals(1, results.size());
@@ -171,7 +170,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 						.from(person)
 						.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 			},
-			new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()}, 0, 3);
+			0, 3, QPerson.person.name.asc(), QPerson.person.id.asc());
 
 		Assertions.assertNotNull(results);
 		Assertions.assertEquals(3, results.size());
@@ -186,7 +185,7 @@ public class QueryTemplateImplTest extends JpaTestBase {
 						.from(person)
 						.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 			},
-			new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()}, 2, 3);
+			2, 3, QPerson.person.name.asc(), QPerson.person.id.asc());
 
 		Assertions.assertNotNull(results);
 		Assertions.assertEquals(3, results.size());
@@ -275,8 +274,8 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person2.getName(), person3.getName())));
 				},
-				QPerson.person.name.asc(),
-				entity -> results.add(entity)
+				entity -> results.add(entity),
+				QPerson.person.name.asc()
 		);
 
 		Assertions.assertNotNull(results);
@@ -314,8 +313,8 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 				},
-				new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()},
-				entity -> results.add(entity)
+				entity -> results.add(entity),
+				QPerson.person.name.asc(), QPerson.person.id.asc()
 		);
 
 		Assertions.assertNotNull(results);
@@ -351,8 +350,9 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person2.getName(), person3.getName())));
 				},
-				QPerson.person.name.asc(), 1, 1,
-				entity -> results.add(entity)
+				1, 1,
+				entity -> results.add(entity),
+				QPerson.person.name.asc()
 		);
 
 		Assertions.assertNotNull(results);
@@ -389,8 +389,9 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 				},
-				new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()}, 0, 3,
-				entity -> results.add(entity)
+				0, 3,
+				entity -> results.add(entity),
+				QPerson.person.name.asc(), QPerson.person.id.asc()
 		);
 
 		Assertions.assertNotNull(results);
@@ -409,8 +410,9 @@ public class QueryTemplateImplTest extends JpaTestBase {
 							.from(person)
 							.where(person.name.in(Arrays.asList(person1.getName(), person2.getName())));
 				},
-				new OrderSpecifier[]{QPerson.person.name.asc(), QPerson.person.id.asc()}, 2, 3,
-				entity -> results.add(entity)
+				2, 3,
+				entity -> results.add(entity),
+				QPerson.person.name.asc(), QPerson.person.id.asc()
 		);
 
 		Assertions.assertNotNull(results);
