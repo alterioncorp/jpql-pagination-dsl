@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>jpql-pagination-dsl</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>jpql-pagination-dsl</name>
 	<description>Type-safe, composable JPQL queries via QueryDSL with built-in pagination and sorting support.</description>
