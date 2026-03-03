@@ -1,6 +1,7 @@
 # jpql-pagination-dsl
 
 [![codecov](https://codecov.io/gh/alterioncorp/jpql-pagination-dsl/graph/badge.svg)](https://codecov.io/gh/alterioncorp/jpql-pagination-dsl)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 A small Java library that lets you define a [QueryDSL](https://openfeign.github.io/querydsl/) query once as a lambda and reuse it to fetch a page, get a count, or stream the full result set — without repeating predicates.
 
