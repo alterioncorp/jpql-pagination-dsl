@@ -1,4 +1,4 @@
-package io.github.alterioncorp.jpql.pagination.test;
+package io.github.alterioncorp.jpql.pagination;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
