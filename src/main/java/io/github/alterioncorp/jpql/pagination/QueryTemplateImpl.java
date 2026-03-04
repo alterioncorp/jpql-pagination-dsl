@@ -7,40 +7,21 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
 /**
- * CDI-managed implementation of {@link QueryTemplate}.
- *
- * <p>Registered as an {@code @ApplicationScoped} bean and injected with the persistence unit
- * named {@code default} via {@code @PersistenceContext}. Inject via {@link QueryTemplate}:
- *
- * <pre>{@code
- * @Inject
- * QueryTemplate queryTemplate;
- * }</pre>
+ * Implementation of {@link QueryTemplate}.
  */
-@ApplicationScoped
 public class QueryTemplateImpl implements QueryTemplate {
 
-	@PersistenceContext(unitName = "default")
-	EntityManager entityManager;
+	private final EntityManager entityManager;
 
 	/**
-	 * No-arg constructor required by the CDI container.
-	 */
-	public QueryTemplateImpl() {
-	}
-
-	/**
-	 * Constructor for use in tests, bypassing CDI.
+	 * Constructor.
 	 *
 	 * @param entityManager the entity manager to use for query execution
 	 */
 	public QueryTemplateImpl(EntityManager entityManager) {
-		super();
 		this.entityManager = entityManager;
 	}
 
