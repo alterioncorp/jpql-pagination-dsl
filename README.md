@@ -1,8 +1,9 @@
 # jpql-pagination-dsl
 
 [![codecov](https://codecov.io/gh/alterioncorp/jpql-pagination-dsl/graph/badge.svg)](https://codecov.io/gh/alterioncorp/jpql-pagination-dsl)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-A small Java library that lets you define a QueryDSL query once as a lambda and reuse it to fetch a page, get a count, or stream the full result set — without repeating predicates.
+A small Java library that lets you define a [QueryDSL](https://openfeign.github.io/querydsl/) query once as a lambda and reuse it to fetch a page, get a count, or stream the full result set — without repeating predicates.
 
 ## The problem
 
@@ -28,7 +29,7 @@ QueryDSL provides the same type safety via generated Q-types but with a fluent, 
 <dependency>
     <groupId>io.github.alterioncorp</groupId>
     <artifactId>jpql-pagination-dsl</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -67,12 +68,9 @@ With `querydsl.packageSuffix=.path`, Q-types are generated in a `.path` sub-pack
 
 `JPQLQueryBuilder<T>` is a top-level `@FunctionalInterface` that defines a query — its select, from, join, and where clauses — without any sort or pagination. Sorting and pagination are applied by `QueryTemplate` at execution time, which is what allows the same builder to serve all three modes.
 
-Inject `QueryTemplate` and define your builder once:
+Define your builder once:
 
 ```java
-@Inject
-QueryTemplate queryTemplate;
-
 JPQLQueryBuilder<Person> byDepartment = queryFactory -> {
     QPerson p = QPerson.person;
     return queryFactory.select(p).from(p)
@@ -116,6 +114,63 @@ queryTemplate.apply(byDepartment, entity -> process(entity));
 | `apply(builder, consumer, sort...)` | Stream results, with optional sorting |
 | `apply(builder, consumer, offset, limit, sort...)` | Stream a single page, with optional sorting |
 
-## CDI setup
+## Framework integration
 
-`QueryTemplateImpl` is an `@ApplicationScoped` bean with `@PersistenceContext(unitName = "default")`. Ensure a persistence unit named `default` is configured in your application.
+`QueryTemplateImpl` accepts an `EntityManager` via its constructor, so it works with any framework.
+
+### CDI (Quarkus, Jakarta EE)
+
+```java
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
+@ApplicationScoped
+public class QueryTemplateProducer {
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Produces
+    @ApplicationScoped
+    public QueryTemplate queryTemplate() {
+        return new QueryTemplateImpl(entityManager);
+    }
+}
+```
+
+Then inject normally:
+
+```java
+@Inject
+QueryTemplate queryTemplate;
+```
+
+### Spring
+
+```java
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class QueryTemplateConfig {
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Bean
+    public QueryTemplate queryTemplate() {
+        return new QueryTemplateImpl(entityManager);
+    }
+}
+```
+
+Then inject normally:
+
+```java
+@Autowired
+QueryTemplate queryTemplate;
+```

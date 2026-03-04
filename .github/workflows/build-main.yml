@@ -1,6 +1,7 @@
-name: Build and Publish
+name: Build and Publish Release
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 
@@ -29,14 +30,19 @@ jobs:
       - name: Build and Publish
         run: mvn clean deploy -U -Ppublish
         env:
-          MAVEN_USERNAME: ${{ github.actor }}
-          MAVEN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
           CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+      - name: Save coverage report
+        uses: actions/upload-artifact@v4
         with:
-          files: target/site/jacoco/jacoco.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: jacoco-report
+          path: target/site/jacoco/jacoco.xml
+          retention-days: 1
+
+  upload-coverage:
+    needs: build-and-publish
+    uses: alterioncorp/.github/.github/workflows/upload-coverage.yml@main
+    secrets:
+      codecov-token: ${{ secrets.CODECOV_TOKEN }}

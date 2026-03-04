@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>io.github.alterioncorp</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.4</version>
 	</parent>
 
 	<artifactId>jpql-pagination-dsl</artifactId>
@@ -31,6 +31,13 @@
 		<url>https://github.com/alterioncorp/jpql-pagination-dsl</url>
 	</scm>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/alterioncorp/jpql-pagination-dsl</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<version.querydsl>7.1</version.querydsl>
 		<version.slf4j>2.0.17</version.slf4j>
@@ -43,12 +50,6 @@
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
 			<version>3.2.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.enterprise</groupId>
-			<artifactId>jakarta.enterprise.cdi-api</artifactId>
-			<version>4.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -148,7 +149,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.6.1</version>
 				<executions>
 					<execution>
 						<id>add-test-source</id>
