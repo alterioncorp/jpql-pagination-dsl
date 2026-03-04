@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import io.github.alterioncorp.jpql.pagination.entities.Person;
 import io.github.alterioncorp.jpql.pagination.entities.path.QPerson;
-import io.github.alterioncorp.jpql.pagination.test.JpaTestBase;
 
 public class QueryTemplateImplTest extends JpaTestBase {
 
